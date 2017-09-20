@@ -1,0 +1,114 @@
+{
+  "computers": [
+    {
+      "id": 1,
+      "model": "Asus",
+      "embedded_adapter": true,
+      "price": 500,
+      "monitor": true
+    },
+    {
+      "id": 2,
+      "model": "McBook",
+      "embedded_adapter": false,
+      "price": 2000,
+      "monitor": true
+    },
+    {
+      "id": 3,
+      "model": "Acer",
+      "embedded_adapter": true,
+      "price": 1000,
+      "monitor": false
+    },
+    {
+      "model": "LG",
+      "embedded_adapter": "true",
+      "price": "32000",
+      "monitor": "",
+      "id": 4
+    }
+  ],
+  "hardware": [
+    {
+      "id": 1,
+      "name": "Core i3",
+      "type": "cpu"
+    },
+    {
+      "id": 2,
+      "name": "Core i7",
+      "type": "cpu"
+    },
+    {
+      "id": 3,
+      "name": "Core m3",
+      "type": "cpu"
+    },
+    {
+      "id": 4,
+      "name": "TopMemory",
+      "type": "memory"
+    },
+    {
+      "id": 5,
+      "name": "LowMemory",
+      "type": "memory"
+    },
+    {
+      "name": "Kkkko",
+      "type": "keyboard",
+      "id": 6
+    }
+  ],
+  "comp_hard": [
+    {
+      "cid": 1,
+      "hid": 1
+    },
+    {
+      "cid": 1,
+      "hid": 4
+    },
+    {
+      "cid": 1,
+      "hid": 6
+    },
+    {
+      "cid": 2,
+      "hid": 3
+    },
+    {
+      "cid": 2,
+      "hid": 5
+    },
+    {
+      "cid": 2,
+      "hid": 6
+    },
+    {
+      "cid": 3,
+      "hid": 2
+    },
+    {
+      "cid": 3,
+      "hid": 4
+    },
+    {
+      "cid": 3,
+      "hid": 6
+    },
+    {
+      "cid": 4,
+      "hid": 3
+    },
+    {
+      "cid": 4,
+      "hid": 4
+    },
+    {
+      "cid": 4,
+      "hid": 6
+    }
+  ]
+}
