@@ -1,0 +1,24 @@
+<input>
+  <d_casualties>
+    <people>300</people>
+    <money>50000</money>
+    <ships>20</ships>
+  </d_casualties>
+  <d_casualties>
+    <people>100</people>
+    <money>20000</money>
+    <ships>2</ships>
+  </d_casualties>
+
+  <d_captains>
+    <name>Richard</name>
+    <rank>Major</rank>
+    <biography>Old and mad person.</biography>
+  </d_captains>
+
+  <d_star_systems>
+    <name>Alpha-Centauri</name>
+    <ages>6000</ages>
+    <size>1.227</size>
+  </d_star_systems>
+</input>
