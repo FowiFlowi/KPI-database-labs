@@ -19,6 +19,6 @@ const getFacts = () => new Promise((resolve, reject) => {
       resolve(facts)
     })
     .catch(e => reject(e.message))
-})
+});
 
-module.exports = getFacts
+export default getFacts

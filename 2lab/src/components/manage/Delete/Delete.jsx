@@ -2,7 +2,7 @@ import React from 'react'
 
 import FactSelect from './FactSelect.jsx'
 
-const getFacts = require('../../../modules/get_facts')
+import getFacts from '../../../modules/get_facts'
 
 class Delete extends React.Component {
   constructor(props) {
@@ -12,29 +12,6 @@ class Delete extends React.Component {
     getFacts()
       .then(options => this.setState({ options }))
       .catch(e => this.setState({ preview: e }))
-    // fetch('/api/instance/f_colonizations')
-    //   .then(res => Promise.all([res.status, res.json()]))
-    //   .then(([status, response]) => {
-    //     if (status !== 200)
-    //       return this.setState({ preview: response.error })
-        
-    //     const options = response.data.rows.map(item => {
-    //       item.date = item.date.substring(0, 10)
-    //       const res = { id: item.id },
-    //             buf = []
-    //       for (const key in item) {
-    //         if (key !== 'id')
-    //           buf.push(`${key}: ${item[key]}`)
-    //       }
-    //       res.value = buf.join(' | ')
-    //       return res
-    //     })
-    //     this.setState({ options })
-    //   })
-    //   .catch(e => {
-    //     console.log(e)
-    //     this.setState({ preview: e.message })
-    //   })
   }
 
   handleChange(e) {

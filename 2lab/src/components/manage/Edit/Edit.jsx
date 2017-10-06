@@ -3,7 +3,7 @@ import React from 'react'
 import FactSelect from '../Delete/FactSelect.jsx'
 import AddSelections from '../Add/AddSelections.jsx'
 
-const getFacts = require('../../../modules/get_facts')
+import getFacts from '../../../modules/get_facts'
 
 class Edit extends React.Component {
   constructor(props) {
@@ -38,7 +38,6 @@ class Edit extends React.Component {
           flag = false
       })
       const value = e.target.value
-      console.log(flag)
       if (flag && !isNaN(Date.parse(value))) {
         const selected = Object.assign(this.state.selected, {
           date: new Date(value).getTime() / 1000
