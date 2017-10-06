@@ -27,6 +27,7 @@ function Attributes(props) {
     return (
       <div>
         {props.attributes.map((a, i) => {
+            if (a.column_name === 'id') return
             if (['numeric', 'integer'].includes(a.data_type))
               return (<NumericSelector
                 key={i} 

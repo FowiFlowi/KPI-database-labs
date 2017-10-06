@@ -1,9 +1,6 @@
 import React from 'react'
 
 function Table(props) {
-    console.log('props')
-    console.log(props.data)
-    console.log(props.data ? props.data.rows : props.data)
     return (
       <div>
         {props.data && props.data.rows.length > 0 &&
@@ -15,9 +12,9 @@ function Table(props) {
                 )}
               </tr>
               {props.data.rows.map((item, i) => (
-                  <tr key={i}>
+                  <tr key={item.id}>
                     {Object.values(item).map((value, i) =>
-                      <td key={-i}>{value}</td>
+                      <td key={i}>{value}</td>
                     )}
                   </tr>
                 ))

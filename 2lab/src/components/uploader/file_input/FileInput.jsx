@@ -1,6 +1,5 @@
 import React from 'react'
 
-// class FileInput extends React.Component {
 function FileInput(props) {
   let inputElement
   return (

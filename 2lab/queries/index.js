@@ -3,6 +3,7 @@ module.exports = {
                     WHERE table_schema = 'public'
                       AND table_type = 'BASE TABLE' 
                       AND table_name != 'spatial_ref_sys'
+                      AND table_name NOT ILIKE 'f_%'
                     `,
 
   selectInstanceColumns: instance => `
@@ -11,5 +12,6 @@ module.exports = {
                       AND table_schema = 'public'
                     `,
 
-  selectInstance: (instance, condition) => `SELECT * FROM ${instance} WHERE ${condition}`
+  selectInstance: (instance, condition = 'true') => 
+                    `SELECT * FROM ${instance} WHERE ${condition}`
 }

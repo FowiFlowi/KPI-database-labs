@@ -1,69 +1,18 @@
-// пошук за атрибутами
-//діапазон чисел,
-//перелічення
-
-// повнотекстовий пошук
-//обов’язкове входження
-//слова, ціла фраза
-
 const multer = require('multer')(),
-      util = require('util'),
-      parseXML = util.promisify(require('xml2js').parseString),
       router = require('express').Router(),
 
       pgdb = require('../modules/pgdb'),
+      factsRouter = require('./facts'),
+      uploadHandler = require('./upload'),
       { 
         selectAllTables,
         selectInstanceColumns,
         selectInstance
       } = require('../queries')
 
+router.use('/facts', factsRouter)
 
-router.post('/upload', multer.single('file'), (req, res) => {
-  if (req.file.mimetype !== 'text/xml')
-    throw new Error('Очікується файл формату XML')
-  if (!req.file.buffer.toString())
-    throw new Error('Файл порожній')
-
-  parseXML(req.file.buffer.toString())
-    .then(({ input }) => {
-      if (!input)
-        throw new Error('Неправильна форма')
-
-      const insertQueries = []
-      for (const instance in input) {
-        if (typeof input[instance] !== 'object')
-          throw new Error('Неправильна форма')
-
-        const values = input[instance].map(row => 
-          `(${Object.values(row)
-              .map(i => isNaN(i[0]) ? `'${i[0]}'` : i[0])
-              .join(', ')})`
-        )
-        .join(', ')
-
-        insertQueries.push(`INSERT INTO ${instance} VALUES ${values}`)
-      }
-
-      return Promise.all([
-        insertQueries,
-        pgdb.query(selectAllTables)
-      ])
-    })
-    .then(([insert, { rows: tables }]) => {
-      const deleteTables = tables.map(({ table }) => `DELETE FROM ${table}`)
-      return Promise.all(
-        deleteTables
-          .concat(insert)
-          .map(i => pgdb.query(i))
-      )
-    })
-    .then(() => res.json({ data: 'Дані завантажені' }))
-    .catch(e => {
-      console.error(e)
-      res.status(400).json({ error: e.message })
-    })
-})
+router.post('/upload', multer.single('file'), uploadHandler)
 
 router.get('/instance/:name?', (req, res) => {
   if (!req.params.name) {
@@ -73,38 +22,40 @@ router.get('/instance/:name?', (req, res) => {
       )
       .catch(e => {
         console.error(e)
-        res.status(500).json({ error: e })
+        res.status(500).json({ error: e.message })
       })
   }
 
-  const instance = req.params.name,
-        data = JSON.parse(req.query.data)
+  const instance = req.params.name
+  if (!req.query.data) {
+    query = selectInstance(instance)
+  } else {
+    let conditions = []
+    const data = JSON.parse(req.query.data)
 
-  if (!data) return res.status(400).json({ error: 'Data in query doesn\'t exist' })
-
-  let conditions = []
-  for (const column in data) {
-    const { type } = data[column]
-    if (type === 'numeric') {
-      const { max, min } = data[column]
-      conditions.push(`(${column} <= ${max} AND ${column} >= ${min})`)
+    for (const column in data) {
+      const { type } = data[column]
+      if (type === 'numeric') {
+        const { max, min } = data[column]
+        conditions.push(`(${column} <= ${max} AND ${column} >= ${min})`)
+      }
+      if (type === 'text') {
+        const words = data[column].words.map(i => i.replace(' ', '')).join(' & ')
+        if (words)
+          conditions.push(`(to_tsvector(${column}) @@ to_tsquery('${words}'))`)
+      }
     }
-    if (type === 'text') {
-      const words = data[column].words.map(i => i.replace(' ', '')).join(' & ')
-      if (words)
-        conditions.push(`(to_tsvector(${column}) @@ to_tsquery('${words}'))`)
-    }
+    query = selectInstance(instance, conditions.join(' AND ') || 'true')
   }
-  conditions = conditions.join(' AND ') 
-  
-  pgdb.query(selectInstance(instance, conditions))
+
+  pgdb.query(query)
     .then(data => {
-      console.log(data.rows)
+      data.tableName = req.params.name ? req.params.name : null
       res.json({ data })
     })
     .catch(e => {
       console.error(e)
-      res.status(500).json({ error: e })
+      res.status(400).json({ error: 'Некоректний запит' })
     })
 })
 
@@ -136,7 +87,7 @@ router.get('/attributes/:instance', (req, res) => {
     })
     .catch(e => {
       console.error(e)
-      res.status(500).json({ error: e })
+      res.status(500).json({ error: e.message })
     })
 })
 

@@ -37,8 +37,6 @@ class Selector extends React.Component {
       .then(([status, response]) => {
         if (status !== 200)
           return this.setState({ preview: response.error })
-        console.log('Instance')
-        console.log(response.data)
         this.setState({ attributes: response.data, preview: '' })
       })
       .catch(e => this.setState({ preview: e.message }))
@@ -51,7 +49,6 @@ class Selector extends React.Component {
           { columns, instance } = this.state.selected
 
     columns[column] = { min, max, type: 'numeric' }
-
     this.setState({ selected: { columns, instance } })
   }
 
@@ -60,12 +57,10 @@ class Selector extends React.Component {
           { columns, instance } = this.state.selected
 
     columns[column] = { words, type: 'text' }
-
     this.setState({ selected: { columns, instance } })
   }
 
   handleSelect() {
-    console.log(this.state.selected)
     if (!this.state.selected.instance || this.state.selected.instance === 'Ніц')
       return this.setState({ preview: 'Сутність не обрана' })
 
@@ -77,7 +72,6 @@ class Selector extends React.Component {
           return this.setState({ preview: response.error })
         
         const { data } = response
-        console.log(data)
         this.setState({ tableData: data })
       })
       .catch(e => this.setState({ preview: e.message }))
@@ -86,7 +80,7 @@ class Selector extends React.Component {
   render() {
     return (
       <div>
-        <h1>Selector</h1>
+        <h3>Перегляд даних</h3>
         <Instance 
           options={this.state.instanceOptions}
           onChange={::this.handleInstanceChange}

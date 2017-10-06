@@ -20,7 +20,7 @@ class Uploader extends React.Component {
     this.setState({ preview: 'Обробка...' })
 
     const formData = new FormData()
-    formData.append('file', e.target.files[0])
+    formData.append('file', file)
 
     fetch('/api/upload/', {
       method: 'POST',
