@@ -51,7 +51,7 @@ class Manage extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className='col-sm-6'>
         <h3>Управління таблицею фактів</h3>
         <Switcher
           onFirstClick={::this.handleAddSwitcher}

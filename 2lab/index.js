@@ -6,7 +6,7 @@ const express = require('express'),
       bodyParser = require('body-parser'),
       app = express(),
 
-      port = process.env.PORT || 3001
+      port = process.env.PORT || 3002
 
 const api = require('./api')
 

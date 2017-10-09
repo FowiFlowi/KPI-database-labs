@@ -4,7 +4,7 @@ function Table(props) {
     return (
       <div>
         {props.data && props.data.rows.length > 0 &&
-          <table>
+          <table className='table'>
           <tbody>
               <tr>
                 {props.data.fields.map(item => 

@@ -1,5 +1,7 @@
 import React from 'react'
 
+// import './FileInput.css'
+
 function FileInput(props) {
   let inputElement
   return (
@@ -9,7 +11,10 @@ function FileInput(props) {
         onChange={props.onChange}
       />
       <div>
-        <button onClick={() => props.onClick(inputElement)}>Завантажити XML дані</button>
+        <button 
+          className='btn btn-primary col-sm-12'
+          onClick={() => props.onClick(inputElement)}>Завантажити XML дані
+        </button>
         <p>{props.preview}</p>
       </div>
     </div>

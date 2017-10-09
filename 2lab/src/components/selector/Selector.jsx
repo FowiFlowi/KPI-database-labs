@@ -79,19 +79,24 @@ class Selector extends React.Component {
 
   render() {
     return (
-      <div>
-        <h3>Перегляд даних</h3>
-        <Instance 
-          options={this.state.instanceOptions}
-          onChange={::this.handleInstanceChange}
-        />
-        <Attributes
-          attributes={this.state.attributes}
-          onNumericChange={::this.handleNumericChange}
-          onTextChange={::this.handleTextChange}
-        />
-        <div>{this.state.preview}</div>
-        <button onClick={::this.handleSelect}>Вибрати</button>
+      <div  className='col-sm-6'>
+        <div>
+          <h3>Перегляд даних</h3>
+          <Instance 
+            options={this.state.instanceOptions}
+            onChange={::this.handleInstanceChange}
+          />
+          <Attributes
+            attributes={this.state.attributes}
+            onNumericChange={::this.handleNumericChange}
+            onTextChange={::this.handleTextChange}
+          />
+          <div>{this.state.preview}</div>
+          <button 
+            className='btn btn-dark'
+            onClick={::this.handleSelect}>Вибрати
+          </button>
+        </div>
 
         <Table 
           data={this.state.tableData}

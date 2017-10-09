@@ -14,8 +14,9 @@ function NumericSelector(props) {
 function TextSelector(props) {
   return (
     <div>
-      <label htmlFor='instance-select'>Введіть потрібні слова через кому | {props.column}</label><br/>
+      <label htmlFor='text-input'>Введіть потрібні слова через кому | {props.column}</label><br/>
         <input
+          id='text-input'
           type='text'
           onChange={props.onChange}
         />

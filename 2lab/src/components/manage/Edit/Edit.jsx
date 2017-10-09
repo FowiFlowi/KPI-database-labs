@@ -85,7 +85,7 @@ class Edit extends React.Component {
         />
         }
         <p>{this.state.preview}</p>
-        <button onClick={::this.handleEdit}>Редагувати</button>
+        <button className='btn btn-light' onClick={::this.handleEdit}>Редагувати</button>
       </div>
     )
   }

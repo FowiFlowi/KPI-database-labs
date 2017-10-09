@@ -55,7 +55,7 @@ class Add extends React.Component {
           onDateChange={::this.handleDateChange}
         />
         <p>{this.state.preview}</p>
-        <button onClick={::this.handleAdd}>Додати</button>
+        <button className='btn btn-success' onClick={::this.handleAdd}>Додати</button>
       </div>
     )
   }

@@ -47,7 +47,7 @@ class Delete extends React.Component {
           onChange={::this.handleChange}
         />
         <p>{this.state.preview}</p>
-        <button onClick={::this.handleDelete}>Видалити</button>
+        <button className='btn btn-danger' onClick={::this.handleDelete}>Видалити</button>
       </div>
     )
   }

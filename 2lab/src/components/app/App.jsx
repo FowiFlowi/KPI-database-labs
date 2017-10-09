@@ -4,6 +4,8 @@ import Uploader from '../uploader/Uploader.jsx'
 import Selector from '../selector/Selector.jsx'
 import Manage from '../manage/Manage.jsx'
 
+import './App.css'
+
 function App() {
   return (
     <div className='wrapper'>
